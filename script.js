@@ -57,7 +57,7 @@ const render = () => {
   while (lists_with_checkBox.firstChild) {
     lists_with_checkBox.removeChild(lists_with_checkBox.firstChild);
   };
-  
+
   arrElements.sort((a, b) => (a.isCheck < b.isCheck) ? -1 : 1);
   arrElements.map((element, index) => {
     const fullContainer = document.createElement('div');
