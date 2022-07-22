@@ -19,14 +19,14 @@
 
 <body>
   <div class="header"></div>
-  <div class="main">
-    <div class="list_contsiner">
-      <input class="input_text" type="text">
-      <button onclick="onButtonClick()">ADD</button>
+  <div id = 'forError' class="container">
+    <div class="add-block">
+      <input id = "add-block_input" type="text">
+      <button onclick="addTask()" class="add-block_button">ADD</button>
     </div>
-    <div class="lists_with_checkBox"></div>
+    <div id = 'list_with_Tasks' class="lists_with_checkBox"></div>
     <div class="main__all_elements_delete">
-      <img onclick="onclickDeleteTabl()" src="./images/deleteTabl.svg" alt="">
+      <img onclick="deleteTasks()" src="./images/deleteTabl.svg" alt="">
     </div>
   </div>
   <div class="footer"></div>

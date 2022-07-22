@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&family=Lobster&family=Rubik+Moonrocks&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&family=Rubik+Moonrocks&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -43,7 +47,7 @@ body {
   background-color: #333333;
 }
 
-.main {
+.container {
   display: flex;
   flex-direction: column;
   flex-grow: 8;
@@ -55,7 +59,7 @@ body {
 
 
 
-.list_contsiner {
+.add-block {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +74,7 @@ body {
   filter: blur(1px);
 }
 
-.list_contsiner input {
+.add-block input {
   height: 30px;
   width: 150px;
   margin-right: 20px;
@@ -79,7 +83,7 @@ body {
   background-color: #383525;
 }
 
-.list_contsiner button {
+.add-block button {
   height: 25px;
   width: 55px;
   background-color: white;
@@ -90,10 +94,26 @@ body {
   box-shadow: 0 0 5px 1px white;
 }
 
-.list_contsiner button:hover {
+.add-block button:hover {
   background-color: #34142d;
   color: #f2f2f2;
   cursor: pointer;
+}
+
+.container_error {
+   filter: blur(5px);
+   z-index: 1;
+}
+
+.error {
+  position:absolute;
+  margin-top: 40%;
+  margin-left: 40%;
+  color: red;
+  background-color: #f2f2f2;
+  border: 2px #34142d solid;
+  padding: 10px;
+  z-index: 2;
 }
 
 .lists_with_checkBox {
