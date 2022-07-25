@@ -1,8 +1,13 @@
 let allTasks = [];
+const link = 'http://localhost:8080';
+const fetchHeaders = {
+  'Content-Type': 'application/json;charset=utf-8',
+  'Access-Control-Allow-Origin': '*'
+};
 
 window.onload = async () => {
   try {
-    const response = await fetch("http://localhost:8080/tasks", {
+    const response = await fetch(link + '/tasks', {
       method: 'GET'
     });
 
@@ -14,7 +19,6 @@ window.onload = async () => {
   }
 };
 
-
 const addTask = async () => {
   const input = document.getElementById('add-block_input');
   if (input === null || input.value.trim() === '') {
@@ -23,12 +27,9 @@ const addTask = async () => {
   }
 
   try {
-    const result = await fetch('http://localhost:8080/tasks', {
+    const result = await fetch(link + '/tasks', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        'Access-Control-Allow-Origin': '*'
-      },
+      headers: fetchHeaders,
       body: JSON.stringify({
         text: input.value
       })
@@ -37,7 +38,6 @@ const addTask = async () => {
     allTasks.push(data);
     input.value = '';
     render();
-
   } catch (error) {
     showError('Ошибка добавления задачи');
   }
@@ -45,46 +45,41 @@ const addTask = async () => {
 
 const deleteTasks = async () => {
   try {
-    await fetch('http://localhost:8080/tasks', {
+    await fetch(link + '/tasks', {
       method: 'DELETE'
     });
     allTasks = [];
     render();
-
   } catch (error) {
     showError('Ошибка удаления задач');
   }
 };
 
-const deleteTask = async (element) => {
+const deleteTask = async (_id) => {
   try {
-    await fetch(`http://localhost:8080/tasks/${element._id}`, {
-      method: 'DELETE',
+    await fetch(link + `/tasks/${_id}`, {
+      method: 'DELETE'
     });
-    index = allTasks.indexOf(element);
-    allTasks.slice(index, 1);
+    allTasks = allTasks.filter(element => (element._id !== _id));
     render();
   } catch (error) {
     showError('Ошибка удаления задачи');
   }
 };
 
-const changeCheckBoxTask = async (element) => {
+const changeCheckBoxTask = async (_id, _isCheck) => {
   try {
-    const result = await fetch(`http://localhost:8080/tasks/isCheck/${element._id}`, {
+    const result = await fetch(link + `/tasks/${_id}/isCheck`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        'Access-Control-Allow-Origin': '*'
-      },
+      headers: fetchHeaders,
       body: JSON.stringify({
-        isCheck: !element.isCheck
+        isCheck: !_isCheck
       })
     });
     const data = await result.json();
 
     allTasks.forEach(item => {
-      if (item._id === element._id) {
+      if (item._id === data._id) {
         item.isCheck = data.isCheck;
       }
     });
@@ -94,15 +89,16 @@ const changeCheckBoxTask = async (element) => {
   }
 };
 
-const changeTextTask = async (element) => {
+const cancelTextTask = (_id) => {
+  render();
+}
+
+const changeTextTask = async (_id) => {
   try {
     const input = document.querySelector('.lists_with_checkBox__input_text');
-    const result = await fetch(`http://localhost:8080/tasks/text/${element._id}`, {
+    const result = await fetch(link + `/tasks/${_id}/text`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        'Access-Control-Allow-Origin': '*'
-      },
+      headers: fetchHeaders,
       body: JSON.stringify({
         text: input.value
       })
@@ -110,8 +106,7 @@ const changeTextTask = async (element) => {
     const data = await result.json();
 
     allTasks.forEach(item => {
-      if (item._id === element._id) {
-        console.log(data.text);
+      if (item._id === data._id) {
         item.text = data.text;
       }
     });
@@ -121,89 +116,104 @@ const changeTextTask = async (element) => {
   }
 };
 
-const editTask = (element) => {
-  indexEditableTask = element._id;
-  render(indexEditableTask);
+const editTask = (_id, _text) => {
+  render();
+  const editingElements = document.getElementById('task-' + _id);
+  const actionModule = document.getElementById('element-' + _id)
+  const editingTask = document.getElementById('editing_task-' + _id);
+  const deletingTask = document.getElementById('deleting_task-' + _id);
+  const textTask = document.getElementById(_id);
+  const imageAdding = document.createElement('img');
+  const imageCancel = document.createElement('img');
+  const adding = document.createElement('div');
+  const cancel = document.createElement('div');
+  const newText = document.createElement('input');
+
+  imageAdding.id = `adding-${_id}`;
+  imageCancel.id = `cancel-${_id}`;
+  newText.id = `input-${_id}`
+  newText.className = 'task__input_text';
+  imageAdding.alt = 'Изменить';
+  imageCancel.alt = 'Отменить';
+  imageCancel.src = './images/cancel.png';
+  imageAdding.src = './images/apply.png';
+  newText.value = _text;
+
+  imageAdding.onclick = () => changeTextTask(_id);
+  imageCancel.onclick = () => cancelTextTask(_id);
+
+  cancel.append(imageCancel);
+  adding.append(imageAdding);
+  actionModule.replaceChild(cancel, deletingTask);
+  actionModule.replaceChild(adding, editingTask);
+  editingElements.replaceChild(newText, textTask);
 };
 
 const showError = (error) => {
-  const window = document.createElement('p');
-  const bodyContainer = document.getElementById('forError');
+  const textError = document.createElement('p');
+  const windowError = document.getElementById('header__error');
   const body = document.getElementsByTagName('body')[0];
 
-  window.innerText = error;
-  bodyContainer.className = 'container_error container';
-  window.className = 'error';
-  body.append(window);
+  textError.innerText = error;
+  textError.className = 'error';
+  windowError.className = 'container_error container';
+  body.append(textError);
   render();
 };
 
 const render = (indexEditableElement = null) => {
-  const allTasks = document.getElementById('list_with_Tasks');
-  while (allTasks.firstChild) {
-    allTasks.removeChild(allTasks.firstChild);
+  const Tasks = document.getElementById('header__tasks');
+  while (Tasks.firstChild) {
+    Tasks.removeChild(Tasks.firstChild);
   };
 
   const copyAllTasks = [...allTasks];
   copyAllTasks.sort((task, nextTask) => (task.isCheck < nextTask.isCheck) ? -1 : 1);
   copyAllTasks.forEach(element => {
     const task = document.createElement('div');
-    const elementsInTask = document.createElement('div');
+    const actionModule = document.createElement('div');
     const editingElements = document.createElement('div');
     const checkBox = document.createElement('input');
-    const p = document.createElement('p');
+    const textTask = document.createElement('p');
     const imageDeletingTask = document.createElement('img');
     const imageEditingTask = document.createElement('img');
+    const editingTask = document.createElement('div');
+    const deletingTask = document.createElement('div');
 
-    p.innerText = element.text;
     checkBox.type = 'checkBox';
+    textTask.innerText = element.text;
     checkBox.checked = element.isCheck;
     imageDeletingTask.src = './images/delete.svg';
     imageEditingTask.src = './images/edit.svg';
-    task.className = 'lists_with_checkBox_container'
+    imageDeletingTask.alt = 'Удалить';
+    imageEditingTask.alt = 'Добавить';
+    editingElements.id = `task-${element._id}`;
+    actionModule.id = `element-${element._id}`;
+    deletingTask.id = `deleting_task-${element._id}`;
+    editingTask.id = `editing_task-${element._id}`;
+    textTask.id = element._id;
+    task.className = 'header__task';
 
-    imageDeletingTask.onclick = () => deleteTask(element);
-    imageEditingTask.onclick = () => editTask(element);
-    checkBox.onclick = () => changeCheckBoxTask(element);
+    deletingTask.onclick = () => deleteTask(element._id);
+    editingTask.onclick = () => editTask(element._id, element.text);
+    checkBox.onclick = () => changeCheckBoxTask(element._id, element.isCheck);
 
     if (element.isCheck) {
       editingElements.className = 'checkBox__active';
+    }
+
+    editingTask.append(imageEditingTask);
+    deletingTask.append(imageDeletingTask);
+    editingElements.append(checkBox);
+    editingElements.append(textTask);
+
+    if (!element.isCheck) {
+      actionModule.append(editingTask);
     };
 
-    if (element._id === indexEditableElement) {
-      const actionCancelAndAdding = document.createElement('div');
-      const newText = document.createElement('input');
-      const imageCancel = document.createElement('img');
-      const imageAdding = document.createElement('img');
-
-      newText.className = 'lists_with_checkBox__input_text';
-      newText.value = element.text;
-      imageCancel.src = './images/cancel.png';
-      imageAdding.src = './images/apply.png';
-
-      imageAdding.onclick = () => changeTextTask(element);
-      imageCancel.onclick = () => render();
-
-      actionCancelAndAdding.append(imageCancel);
-      actionCancelAndAdding.append(imageAdding);
-      elementsInTask.append(actionCancelAndAdding);
-      element.append(checkBox);
-      editingElements.append(newText);
-    } else {
-      let p = document.createElement('p');
-      p.innerText = element.text;
-
-      editingElements.append(checkBox);
-      editingElements.append(p);
-
-      if (!element.isCheck) {
-        elementsInTask.append(imageEditingTask);
-      };
-    };
-
-    elementsInTask.append(imageDeletingTask);
+    actionModule.append(deletingTask);
     task.append(editingElements);
-    task.append(elementsInTask);
-    allTasks.append(task);
+    task.append(actionModule);
+    Tasks.append(task);
   });
 };

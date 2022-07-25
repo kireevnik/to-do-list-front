@@ -13,7 +13,7 @@ body {
   height: 100vh;
 }
 
-.main__all_elements_delete img {
+.header__tasks_delete img {
   width: 50px;
   height: 50px;
   background-size: cover;
@@ -24,12 +24,12 @@ body {
   backdrop-filter: blur(5px);
 }
 
-.main__all_elements_delete img:hover {
+.header__tasks_delete img:hover {
   box-shadow: 0 0 5px 2px #34142d;
   cursor: pointer;
 }
 
-.main__all_elements_delete {
+.header__tasks_delete {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -116,7 +116,7 @@ body {
   z-index: 2;
 }
 
-.lists_with_checkBox {
+.header__tasks {
   flex-grow: 6;
   display: flex;
   flex-direction: column;
@@ -126,14 +126,14 @@ body {
   min-width: 210px;
 }
 
-.lists_with_checkBox div {
+.header__tasks div {
   display: flex;
   width: 100%;
   justify-content: center;
   height: 30px;
 }
 
-.lists_with_checkBox_container {
+.header__task {
   margin-left: -20px;
   border: 2px #34142d solid;
   margin-bottom: 10px;
@@ -145,7 +145,7 @@ body {
 }
 
 
-.lists_with_checkBox div p {
+.header__tasks div p {
   margin-left: 10px;
   font-style: italic;
   font-family: 'Lobster', sans-serif;
@@ -155,20 +155,20 @@ body {
   white-space: nowrap;
 }
 
-.lists_with_checkBox div input:first-child {
+.header__tasks div input:first-child {
   width: 20px;
   height: 30px;
 }
 
-.lists_with_checkBox_container div:first-child {
+.header__tasks div:first-child {
   justify-content: flex-start;
 }
 
-.lists_with_checkBox_container div:last-child {
+.header__task div:last-child {
   justify-content: flex-end;
 }
 
-.lists_with_checkBox_container div:last-child img {
+.header__task div:last-child img {
   padding-right: 5px;
   padding-left: 5px;
   width: 25px;
@@ -176,7 +176,7 @@ body {
   border-radius: 10px;
 }
 
-.lists_with_checkBox_container div:last-child img:hover {
+.header__task div:last-child img:hover {
   background-color: #34142d;
   color: #34142d;
   cursor: pointer;
@@ -197,7 +197,7 @@ body {
 
 ;
 
-.lists_with_checkBox_container {
+.header__task {
   border-radius: 50%;
   border: 2px #34142d solid;
 }
