@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +10,12 @@
 </head>
 <body>
   <div class="header"></div>
-  <div id="header__error" class="container">
+  <div class="container">
     <div class="add-block">
       <input id="add-block_input" type="text">
       <button onclick="addTask()" class="add-block_button">ADD</button>
     </div>
+    <p id="header__error" class="header__error"></p>
     <div id="header__tasks" class="header__tasks"></div>
     <div class="header__tasks_delete">
       <img onclick="deleteTasks()" src="./images/deleteTabl.svg" alt="">
