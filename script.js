@@ -21,7 +21,9 @@ window.onload = async () => {
 
 const addTask = async () => {
   const input = document.getElementById('add-block_input');
-  if (input === null || input.value.trim() === '') {
+  if (input === null
+    || input.value.trim() === ''
+  ) {
     input.value = '';
     return;
   }
@@ -79,7 +81,7 @@ const changeCheckBoxTask = async (_id, _isCheck) => {
     const data = await result.json();
 
     allTasks.forEach(item => {
-      if (item._id === data._id) {
+      if (data._id === item._id) {
         item.isCheck = data.isCheck;
       }
     });
@@ -95,7 +97,7 @@ const cancelTextTask = (_id) => {
 
 const changeTextTask = async (_id) => {
   try {
-    const input = document.querySelector('.lists_with_checkBox__input_text');
+    const input = document.querySelector('.task__input_text');
     const result = await fetch(link + `/tasks/${_id}/text`, {
       method: 'PATCH',
       headers: fetchHeaders,
@@ -112,7 +114,7 @@ const changeTextTask = async (_id) => {
     });
     render();
   } catch (error) {
-    showError('Ошибка удаления задачи');
+    showError('Ошибка изменения задачи');
   }
 };
 
@@ -161,14 +163,22 @@ const showError = (error) => {
   render();
 };
 
-const render = (indexEditableElement = null) => {
+const render = () => {
   const Tasks = document.getElementById('header__tasks');
   while (Tasks.firstChild) {
     Tasks.removeChild(Tasks.firstChild);
   };
 
   const copyAllTasks = [...allTasks];
-  copyAllTasks.sort((task, nextTask) => (task.isCheck < nextTask.isCheck) ? -1 : 1);
+  copyAllTasks.sort((task, nextTask) => {
+    if (task.isCheck < nextTask.isCheck) {
+      return -1;
+    } 
+    if (task.isCheck === nextTask.isCheck) {
+      return 0;
+    }
+    return 1;
+  });
   copyAllTasks.forEach(element => {
     const task = document.createElement('div');
     const actionModule = document.createElement('div');
@@ -200,17 +210,14 @@ const render = (indexEditableElement = null) => {
 
     if (element.isCheck) {
       editingElements.className = 'checkBox__active';
+    } else {
+      actionModule.append(editingTask);
     }
 
     editingTask.append(imageEditingTask);
     deletingTask.append(imageDeletingTask);
     editingElements.append(checkBox);
     editingElements.append(textTask);
-
-    if (!element.isCheck) {
-      actionModule.append(editingTask);
-    };
-
     actionModule.append(deletingTask);
     task.append(editingElements);
     task.append(actionModule);
