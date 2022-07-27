@@ -121,7 +121,7 @@ const cancelTextTask = (id, text) => {
 
   buttonDelete.onclick = () => deleteTask(id);
   buttonEdit.onclick = () => editTask(id, text);
-  checkBox.onclick = () => changeCheckBoxTask(id, false);
+  checkBox.onclick = () => changeCheckBoxTask(id, isCheck);
 
   buttonDelete.append(imageDelete);
   buttonEdit.append(imageEdit);
@@ -133,7 +133,7 @@ const cancelTextTask = (id, text) => {
 const changeTextTask = async (id) => {
   try {
     const input = document.getElementById(`task__input-${id}`);  
-    if (typeof input.value === null) {
+    if (input.value === null) {
       return;
     }
     if (input.value === '') {
@@ -159,7 +159,7 @@ const changeTextTask = async (id) => {
   }
 };
 
-const editTask = (id, text) => {
+const editTask = (id, text, isCheck) => {
   const task = document.getElementById(`task-${id}`);
   const newTask = document.createElement('div');
   const buttonsNewTask = document.createElement('div');
@@ -185,7 +185,7 @@ const editTask = (id, text) => {
   oldText.id = id;
 
   buttonChange.onclick = () => changeTextTask(id);
-  buttonCancel.onclick = () => cancelTextTask(id, text);
+  buttonCancel.onclick = () => cancelTextTask(id, text, isCheck);
   
   buttonCancel.append(imageCancel);
   buttonChange.append(imageChange);
@@ -197,12 +197,23 @@ const editTask = (id, text) => {
 };
 
 const showError = (error) => {
+  try {
+    if (error === null) {
+      throw new Error ('');
+    }
   const textError = document.getElementById('header__error');
   textError.innerText = error;
+  } catch(error) {
+    return;
+  }
 };
 
 const render = () => {
   const tasks = document.getElementById('header__tasks');
+  if (tasks === null) {
+    showError('Ошибка');
+    return;
+  }
   while (tasks.firstChild) {
     tasks.removeChild(tasks.firstChild);
   };
@@ -218,11 +229,7 @@ const render = () => {
     return 0;
   });
   copyAllTasks.forEach(element => {
-    const {
-      isCheck,
-      _id: id,
-      text
-    } = element;
+    const { isCheck, _id, text } = element;
     const newText = document.createElement('p');
     const checkBox = document.createElement('input');
     const imageDelete = document.createElement('img');
@@ -233,19 +240,19 @@ const render = () => {
     const task = document.createElement('div');
 
     newText.innerText = element.text;
-    newText.id = `task__text-${id}`;
+    newText._id = `task__text-${_id}`;
     checkBox.type = 'checkBox';
     checkBox.checked = element.isCheck;
     imageDelete.src = './images/delete.svg';
     imageDelete.alt = 'Удалить';
     imageEdit.src = './images/edit.svg';
     imageEdit.alt = 'Добавить';
-    task.id = `task-${id}`;
+    task._id = `task-${_id}`;
     isCheck ? task.className = 'checkBox__active' : task.className = 'header__task';
 
-    buttonEdit.onclick = () => editTask(id, text);
-    buttonDelete.onclick = () => deleteTask(id);
-    checkBox.onclick = () => changeCheckBoxTask(id, isCheck);
+    buttonEdit.onclick = () => editTask(_id, text, isCheck);
+    buttonDelete.onclick = () => deleteTask(_id);
+    checkBox.onclick = () => changeCheckBoxTask(_id, isCheck);
 
     if (!isCheck) {
       buttonsTask.append(buttonEdit);
