@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&family=Lobster&family=Rubik+Moonrocks&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&family=Rubik+Moonrocks&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header__tasks_delete img {
+  width: 3vw;
+  height: 5vh;
+  background-size: cover;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 1rem 1rem #34142d;
+  border-radius: 1rem;
+  backdrop-filter: blur(1rem);
+}
+
+.header__tasks_delete img:hover {
+  box-shadow: 0 0 1rem 1rem #34142d;
+  cursor: pointer;
+}
+
+.header__tasks_delete {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.header {
+  flex-grow: 0.5;
+  background-color: #373740;
+  box-shadow: 0 0 1rem 1rem black;
+}
+
+.footer {
+  flex-grow: 1;
+  background-color: #333333;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 8;
+  background-position-x: center;
+  align-items: center;
+  background-image: url(https://i.ytimg.com/vi/bFz4YmzEjug/maxresdefault.jpg);
+  object-fit: contain;
+}
+
+.add-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem 1rem;
+  backdrop-filter: blur(1rem);
+}
+
+.checkBox__active p {
+  text-decoration: line-through;
+  filter: blur(1rem);
+}
+
+.add-block input {
+  height: 3vh;
+  width: 12vw;
+  margin-right: 2vw;
+  background-color: #373740;
+  padding-left: 1rem;
+  font-size: 2vw;
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+
+.add-block button {
+  width: 5rem;
+  background-color: white;
+  border-radius: 1rem;
+  border: 1rem #34142d solid;
+  font-style: italic;
+  font-weight: 900;
+  box-shadow: 0 0 1rem 1rem white;
+}
+
+.add-block button:hover {
+  background-color: #34142d;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+.add-block button:active {
+  background-color: #34142e;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+.header__error {
+  color: red;
+}
+
+.header__tasks {
+  flex-grow: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 4vh;
+  min-width: 21vw;
+}
+
+.header__tasks div {
+  display: flex;
+  justify-content: center;
+  height: 2rem;
+}
+
+.header__task {
+  border: 0.1rem #34142d solid;
+  margin-bottom: 0.4rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 1;
+  backdrop-filter: blur(1rem);
+  box-shadow: 0 0 1rem 1rem #34142d;
+}
+
+.header__tasks div p {
+  margin-left: 1vw;
+  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 900;
+  font-size: 2vh;
+  margin-right: 2vw;
+  white-space: nowrap;
+}
+
+.header__tasks div input:first-child {
+  width: 2vw;
+  height: 3vh;
+}
+
+.header__tasks div:first-child {
+  justify-content: flex-start;
+}
+
+.header__task div:last-child {
+  justify-content: flex-end;
+}
+
+.header__task div:last-child img {
+  width: 2.5vw;
+  height: 2.5vh;
+  border-radius: 1rem;
+}
+
+.header__task div:last-child img:hover {
+  background-color: #34142d;
+  color: #34142d;
+  cursor: pointer;
+}
+
+.active_button {
+  background: #34142d;
+}
+
+.task__input_text {
+  width: 15vh;
+  height: 2.5vh;
+  border-radius: 1rem;
+  margin-left: 1vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
