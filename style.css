@@ -17,15 +17,15 @@ body {
   width: 3vw;
   height: 5vh;
   background-size: cover;
-  margin: 2%;
+  margin: 1rem;
   padding: 1rem;
   box-shadow: 0 0 1rem 1rem #34142d;
-  border-radius: 20%;
+  border-radius: 1rem;
   backdrop-filter: blur(1rem);
 }
 
 .header__tasks_delete img:hover {
-  box-shadow: 0 0 1% 1% #34142d;
+  box-shadow: 0 0 1rem 1rem #34142d;
   cursor: pointer;
 }
 
@@ -33,13 +33,12 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 100%;
 }
 
 .header {
   flex-grow: 0.5;
   background-color: #373740;
-  box-shadow: 0 0 1% 1% black;
+  box-shadow: 0 0 1rem 1rem black;
 }
 
 .footer {
@@ -68,7 +67,7 @@ body {
 
 .checkBox__active p {
   text-decoration: line-through;
-  filter: blur(1px);
+  filter: blur(1rem);
 }
 
 .add-block input {
@@ -76,21 +75,20 @@ body {
   width: 12vw;
   margin-right: 2vw;
   background-color: #373740;
-  padding-left: 2%;
+  padding-left: 1rem;
   font-size: 2vw;
   font-family: 'Times New Roman', Times, serif;
   color: white;
 }
 
 .add-block button {
-  height: 3vh;
-  width: 4vw;
+  width: 5rem;
   background-color: white;
-  border-radius: 10%;
-  border: 3px #34142d solid;
+  border-radius: 1rem;
+  border: 1rem #34142d solid;
   font-style: italic;
   font-weight: 900;
-  box-shadow: 0 0 1% 1% white;
+  box-shadow: 0 0 1rem 1rem white;
 }
 
 .add-block button:hover {
@@ -121,19 +119,18 @@ body {
 
 .header__tasks div {
   display: flex;
-  width: 100%;
   justify-content: center;
-  height: 5%;
+  height: 2rem;
 }
 
 .header__task {
-  border: 2px #34142d solid;
-  margin-bottom: 1vh;
-  padding: 2%;
-  border-radius: 1%;
+  border: 0.1rem #34142d solid;
+  margin-bottom: 0.4rem;
+  padding: 2rem;
+  border-radius: 1rem;
   z-index: 1;
-  backdrop-filter: blur(2px);
-  box-shadow: 0 0 3px 1px #34142d;
+  backdrop-filter: blur(1rem);
+  box-shadow: 0 0 1rem 1rem #34142d;
 }
 
 .header__tasks div p {
@@ -162,7 +159,7 @@ body {
 .header__task div:last-child img {
   width: 2.5vw;
   height: 2.5vh;
-  border-radius: 10%;
+  border-radius: 1rem;
 }
 
 .header__task div:last-child img:hover {
@@ -178,8 +175,8 @@ body {
 .task__input_text {
   width: 15vh;
   height: 2.5vh;
-  border-radius: 10%;
+  border-radius: 1rem;
   margin-left: 1vh;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

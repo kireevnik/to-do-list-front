@@ -108,7 +108,7 @@ const cancelTextTask = (element) => {
   const oldText = document.createElement('p');
   const checkBox = document.createElement('input');
 
-  checkBox.type = 'checbox';
+  checkBox.type = 'checkbox';
   buttonEdit.id = `task__button_editing-${_id}`;
   buttonDelete.id = `task__button_deleting-${_id}`;
   oldText.id = `task__text-${_id}`;
@@ -119,7 +119,6 @@ const cancelTextTask = (element) => {
   oldText.innerText = text;
   newTask.className = 'header__task';
   newTask.id = `task-${_id}`;
-
 
   buttonDelete.onclick = () => deleteTask(id);
   buttonEdit.onclick = () => editTask(element);
@@ -198,24 +197,22 @@ const editTask = (element) => {
 };
 
 const showError = (error) => {
-    if (error.trim() === '') {
-      return;
-    }
-    const textError = document.getElementById('header__error');
-    textError.innerText = error;
+  const textError = document.getElementById('header__error');
+  if (textError === null) {
+    return;
+  }
+  textError.innerText = error;
 };
 
 const render = () => {
-  try {
   const tasks = document.getElementById('header__tasks');
-  
-  while (tasks.firstChild) {
-    tasks.removeChild(tasks.firstChild);
-  };
-  } catch {
+  if (tasks === null) {
     showError('Ошибка');
     return;
   }
+  while (tasks.firstChild) {
+    tasks.removeChild(tasks.firstChild);
+  };
 
   const copyAllTasks = [...allTasks];
   copyAllTasks.sort((task, nextTask) => {
@@ -240,7 +237,7 @@ const render = () => {
 
     newText.innerText = text;
     newText._id = `task__text-${_id}`;
-    checkBox.type = 'checkBox';
+    checkBox.type = 'checkbox';
     checkBox.checked = isCheck;
     imageDelete.src = './images/delete.svg';
     imageDelete.alt = 'Удалить';
