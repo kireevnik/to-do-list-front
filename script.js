@@ -207,7 +207,6 @@ const showError = (error) => {
 const render = () => {
   const tasks = document.getElementById('header__tasks');
   if (tasks === null) {
-    showError('Ошибка');
     return;
   }
   while (tasks.firstChild) {
